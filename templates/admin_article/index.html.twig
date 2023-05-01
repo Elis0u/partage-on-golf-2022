@@ -1,0 +1,52 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Administration articles - Partage ton golf{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Liste des articles</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Crée le</th>
+                <th>Mis à jour</th>
+                <th>Status</th>
+                <th>Validé ?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.content|u.truncate(50, '...')|raw }}</td>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.status }}</td>
+                <td>
+                    {% if article.isValidate == true %}
+                        <a href="{{ path('app_admin_switch_validate_article', {'id': article.id}) }}">Ne plus valider</a> 
+                    {% else %}
+                        <a href="{{ path('app_admin_switch_validate_article', {'id': article.id}) }}">Valider</a> 
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_article_show', {'id': article.id}) }}"><i class="bi bi-eye"></i></a>
+                    <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}"><i class="bi bi-pencil"></i></a>
+                    <a href="{{ path('app_admin_article_delete', {'id': article.id}) }}"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun article trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-main" href="{{ path('app_admin_article_new') }}">Ajouter un article</a>
+{% endblock %}

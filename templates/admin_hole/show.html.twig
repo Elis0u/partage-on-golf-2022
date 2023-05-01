@@ -1,0 +1,50 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Hole{% endblock %}
+
+{% block body %}
+    <h1>Hole</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ hole.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ hole.name }}</td>
+            </tr>
+            <tr>
+                <th>Tips</th>
+                <td>{{ hole.tips }}</td>
+            </tr>
+            <tr>
+                <th>DistanceBleu</th>
+                <td>{{ hole.distanceBleu }}</td>
+            </tr>
+            <tr>
+                <th>DistanceRouge</th>
+                <td>{{ hole.distanceRouge }}</td>
+            </tr>
+            <tr>
+                <th>DistanceJaune</th>
+                <td>{{ hole.distanceJaune }}</td>
+            </tr>
+            <tr>
+                <th>DistanceBlanc</th>
+                <td>{{ hole.distanceBlanc }}</td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ hole.imageName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_hole_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_hole_edit', {'id': hole.id}) }}">edit</a>
+
+    {{ include('admin_hole/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+
+<div class="spe_article">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col-12 text-center contenant">
+                {% if article.imageName %}
+                <img src="{{ vich_uploader_asset(article, 'imageFile')| imagine_filter('article_full') }}" alt="image sur {{ article.title }}" style="max-width: 75%">
+                {% else %}
+                <img src="{{ asset("assets/default.jpg")| imagine_filter('article_full') }}">    
+                {% endif %}
+                <div class="text_on_img p-4">
+                    <h1>{{ article.title }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 second-content">
+                <p class="p-4">{{ article.content|raw }}</p>
+                <p class="px-4 text-end">Ecrit le {{ article.createdAt|date('d/m/Y') }} par <a class="name fw-bold" href="{{ path("user_show_profile", {'id': article.author.userProfile.id}) }}">{{ article.author }}</a></p>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col-12 second-content">
+                <div class="row">
+                    <h4 class="pt-2 mx-2">Commentaires</h4>
+                </div>
+
+                {{ form_start(formComment)}}
+                <div class="row py-4">
+                    <div class="col-lg-9 col-sm-12">
+                        {{ form_row(formComment.content) }}
+                    </div>
+                    <div class="col-lg-3 col-sm-12 px-0 text-center">
+                        <input type="submit" class="btn btn-main" value="Envoyer">
+                    </div>
+                </div>
+                {{ form_end(formComment)}}
+
+                {% for comment in article.comments %}
+                    <div class="row first-content m-2">
+                        <div class="col-lg-1 col-sm-12">
+                            {% if comment.author.userProfile.avatarName %}
+                            <img src="{{ vich_uploader_asset(comment.author.userProfile, 'avatarFile') }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                            {% else %}
+                            <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-11 col-sm-12">
+                            <a class="name fw-bold" href="{{ path("user_show_profile", {'id': comment.author.userProfile.id}) }}">{{ comment.author }}</a> le {{ comment.createdAt|date('d/m/Y') }} <br>
+                            {{ comment.content|raw }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

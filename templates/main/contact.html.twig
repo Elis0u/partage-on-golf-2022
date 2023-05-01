@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Partage Ton Golf{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+
+<div class="settings">
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 offset-lg-2 col-sm-12">
+                <div class="card shadow-sm p-4">
+                    <div class="card-body">
+                        {{ form_start(formContact) }}
+                            <h2 class="text-uppercase pb-5 text-center">Contacter un admin</h2>
+                            {{ form_widget(formContact) }}
+                            <div class="mb-3 d-flex justify-content-end">
+                                <input type="submit"value="{{ btnLabel }}" class="btn btn-main btn-form">
+                            </div> 
+                          {{ form_end(formContact) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

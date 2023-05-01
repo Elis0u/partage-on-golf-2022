@@ -1,0 +1,21 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:         
+        articles:             
+            uri_prefix: /images/articles
+            upload_destination: '%kernel.project_dir%/public/images/articles'
+        courses_avatar:             
+            uri_prefix: /images/avatar_course
+            upload_destination: '%kernel.project_dir%/public/images/avatar_course'
+        userprofile_avatar:             
+            uri_prefix: /images/avatar
+            upload_destination: '%kernel.project_dir%/public/images/avatar'
+        holes:             
+            uri_prefix: /images/holes
+            upload_destination: '%kernel.project_dir%/public/images/holes'
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

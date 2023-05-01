@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer de {{ user_profile.user.firstname }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+<div class="settings">
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 offset-lg-2 col-sm-12">
+                <div class="card shadow-sm">
+                    <nav class="navbar">
+                        <div class="container-fluid">
+                            <ul class="nav">
+                                <li class="p-1">
+                                <a href="{{ path('user_edit_profile', {id : user_profile.id})  }}" class="nav-link text-center">
+                                    userprofile
+                                </a>
+                                </li>
+                                <li class="p-1">
+                                <a href="{{ path('user_edit', {id : user_profile.id})  }}" class="nav-link text-center">
+                                    user
+                                </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="card-body">
+                        {{ form_start(form_profile) }}
+                            <h2 class="text-uppercase text-center">Paramètres Profil</h2>
+                            <div class="mb-3">
+                                {{ form_row(form_profile.avatarFile) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(form_profile.biography) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(form_profile.birthday) }}
+                            </div>
+                            {# <div class="mb-3">
+                                <label for="pseudo" class="form-label">Pseudo</label>
+                                <input type="text" class="form-control" id="pseudo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="golf" class="form-label">Membre golf</label>
+                                <input type="text" class="form-control" id="golf">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="mdp" class="form-label">Mot de passe</label>
+                                <input type="password" class="form-control" id="mdp">
+                            </div>#}
+                            <div class="mb-3 d-flex justify-content-end">
+                                <input type="submit"value="{{ btnLabel }}" class="btn btn-primary btn-form">
+                            </div> 
+                          {{ form_end(form_profile) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

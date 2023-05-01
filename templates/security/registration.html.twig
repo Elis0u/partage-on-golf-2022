@@ -1,0 +1,52 @@
+{% extends 'base_register.html.twig' %}
+
+{% block title %}{{ pageTitle }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+
+
+<div class="register">
+    <div class="container">
+        <div class="row">
+            <div class="offset-lg-2 col-lg-8 col-md-12 mb-4">
+                <div class="text-center register_logo">
+                    <img src="{{ asset('assets/img/logos/logo_noir_vert1.png') }}" alt="Logo site" class="p-4">
+                </div>
+                <div class="card shadow-sm p-4">
+                    <div class="card-body">
+                        {{ form_start(formRegister) }} 
+                            <h2 class="text-uppercase pb-5 text-center">S'inscrire</h2>
+                            <div class="mb-3">
+                                {{ form_row(formRegister.email) }} 
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(formRegister.lastname) }} 
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(formRegister.firstname) }} 
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(formRegister.password) }} 
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(formRegister.confirmPassword) }} 
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(formRegister.hasRGPD) }} 
+                                J'accepte les <a href="{{ path('show_custom_page', {'url' : 'mentions-legales'}) }}">mentions légales</a> et <a href="{{ path('show_custom_page', {'url' : 'politique-confidentialite'}) }}">politiques de confidentialités</a>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary btn-form">S'inscrire</button>
+                            </div>
+                        {{ form_end(formRegister) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

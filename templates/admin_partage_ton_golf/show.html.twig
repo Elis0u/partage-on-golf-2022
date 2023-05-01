@@ -1,0 +1,26 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}PartageTonGolf{% endblock %}
+
+{% block body %}
+    <h1>PartageTonGolf</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ partage_ton_golf.id }}</td>
+            </tr>
+            <tr>
+                <th>Slogan</th>
+                <td>{{ partage_ton_golf.slogan }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_partage_ton_golf_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_partage_ton_golf_edit', {'id': partage_ton_golf.id}) }}">edit</a>
+
+    {{ include('admin_partage_ton_golf/_delete_form.html.twig') }}
+{% endblock %}

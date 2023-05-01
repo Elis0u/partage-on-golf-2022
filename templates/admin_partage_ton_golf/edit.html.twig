@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit PartageTonGolf{% endblock %}
+
+{% block body %}
+    <h1>Edit PartageTonGolf</h1>
+
+    {{ include('admin_partage_ton_golf/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_partage_ton_golf_index') }}">back to list</a>
+
+    {{ include('admin_partage_ton_golf/_delete_form.html.twig') }}
+{% endblock %}

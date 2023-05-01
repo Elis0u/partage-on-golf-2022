@@ -1,0 +1,37 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}KindCourse index{% endblock %}
+
+{% block body %}
+    <h1>KindCourse index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>InternalName</th>
+                <th>Label</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for kind_course in kind_courses %}
+            <tr>
+                <td>{{ kind_course.id }}</td>
+                <td>{{ kind_course.internalName }}</td>
+                <td>{{ kind_course.label }}</td>
+                <td>
+                    <a href="{{ path('app_admin_kind_course_show', {'id': kind_course.id}) }}">show</a>
+                    <a href="{{ path('app_admin_kind_course_edit', {'id': kind_course.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_kind_course_new') }}">Create new</a>
+{% endblock %}

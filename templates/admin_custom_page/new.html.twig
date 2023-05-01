@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}New CustomPage{% endblock %}
+
+{% block body %}
+    <h1>Create new CustomPage</h1>
+
+    {{ include('admin_custom_page/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_custom_page_index') }}">back to list</a>
+{% endblock %}

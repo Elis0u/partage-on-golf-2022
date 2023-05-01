@@ -1,0 +1,41 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Demande de contact - Partage ton golf{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Demandes de contact</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Sujet</th>
+                <th>Contenu</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.firstname }}</td>
+                <td>{{ contact.lastname }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.subject }}</td>
+                <td>{{ contact.content }}</td>
+                <td>
+                    <a href="{{ path('app_admin_contact_show', {'id': contact.id}) }}"><i class="bi bi-eye"></i></a>
+                    <a href="{{ path('app_admin_contact_delete', {'id': contact.id}) }}"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucune demande de contact</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

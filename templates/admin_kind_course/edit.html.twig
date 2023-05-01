@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit KindCourse{% endblock %}
+
+{% block body %}
+    <h1>Edit KindCourse</h1>
+
+    {{ include('admin_kind_course/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_kind_course_index') }}">back to list</a>
+
+    {{ include('admin_kind_course/_delete_form.html.twig') }}
+{% endblock %}

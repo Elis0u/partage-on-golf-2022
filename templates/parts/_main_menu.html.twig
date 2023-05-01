@@ -1,0 +1,64 @@
+<div class="container-fluid px-0 sticky-top">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg first-nav ">
+            <div class="container">
+                <a href="/accueil" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <img width="110" height="56" src="{{ asset('assets/img/logos/logo_blanc_bleu.png') }}" alt="Logo site">
+                </a>
+                {% if app.user %}
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if app.user.userProfile.avatarName %}
+                        <img src="{{ vich_uploader_asset(app.user.userProfile, 'avatarFile') }}" alt="avatar" width="48" height="48" class="rounded-circle">
+                        {% else %}
+                        <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="48" height="48" class="rounded-circle">
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdown1">
+                    <li><a class="dropdown-item" href="{{ path("user_show_profile", {'id': app.user.userProfile.id }) }}">Mon profil</a></li>
+                    <li><a class="dropdown-item" href="{{ path("user_edit_profile", {'id': app.user.userProfile.id }) }}">Paramètres</a></li>
+                    <li><a class="dropdown-item" href="{{ path("app_admin_dashboard") }}">Panel Admin</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ path("security_logout") }}">Se deconnecter</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg second-nav py-0">
+            <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav offset-lg-4 col-lg-6 col-ms-12">
+                    <li class="p-1">
+                    <a href="{{ path('post') }}" class="nav-link text-center">
+                        <img width="36" height="36" src="{{ asset('assets/img/icon/discu_icon_green2.png') }}" alt="Icon discu"> <br>
+                        Discussion
+                    </a>
+                    </li>
+                    <li class="p-1">
+                    <a href="{{ path('courses') }}" class="nav-link text-center">
+                        <img width="36" height="36" src="{{ asset('assets/img/icon/golf_icon_green2.png') }}" alt="Icon Parcours"> <br>
+                        Parcours
+                    </a>
+                    </li>
+                    <li class="p-1">
+                    <a href="{{ path('articles') }}" class="nav-link text-center">
+                        <img width="36" height="36" src="{{ asset('assets/img/icon/posts_icon_green2.png') }}" alt="Icon article"> <br>
+                        Articles
+                    </a>
+                    </li>
+                    <li class="p-1">
+                    <a href="{{ path('contact') }}" class="nav-link text-center">
+                        <img width="36" height="36" src="{{ asset('assets/img/icon/contact_icon_green2.png') }}" alt="Icon contact"> <br>
+                        Contact
+                    </a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+    </div>
+</div>

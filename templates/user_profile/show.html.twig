@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user_profile.user.firstname }} {{ user_profile.user.lastname }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+<div class="profile">
+    <div class="container my-2">
+        <div class="row d-flex m-auto">
+            <div class="col-lg-2 col-sm-12 text-center">
+                {% if user_profile.avatarName %}
+                <img src="{{ vich_uploader_asset(user_profile, 'avatarFile') }}" alt="avatar" width="120" height="120" class="rounded-circle">
+                {% else %}
+                <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="120" height="120" class="rounded-circle">
+                {% endif %}
+                <h2>{{ user_profile.user.firstname }} {{ user_profile.user.lastname }}</h2>
+            </div>
+            <div class="col-lg-10 col-sm-12 text-center first-content m-auto">
+               {% if user_profile.biography %}
+                {{ user_profile.biography|raw }}
+               {% else %}
+               <p class="py-2">Pas de biographie</p>
+               {% endif %}
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-4 col-sm-12 first-content p-2">
+                <div class="row d-flex m-auto">
+                    <div class="col-12 text-center p-2">
+                        <i class="bi bi-balloon"> {{ user_profile.birthday|date ('d/m/Y') }}</i>
+                    </div>
+                </div>
+                <div class="row d-flex m-auto">
+                    <div class="col-12 text-center p-2">
+                        <i class="bi bi-info-circle"> Compte crée le {{ user_profile.createdAt|date ('d/m/Y') }}</i>
+                    </div>
+                </div>
+                <div class="row d-flex m-auto">
+                    <div class="col-lg-10 col-sm-12 text-center first-content m-auto p-2">
+                        {% if user_profile.golf %}
+                            <i class="bi bi-flag"> Membre {{ user_profile.golf }}</i>
+                        {% else %}
+                            Aucun golf renseigné
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row d-flex m-auto">
+                    <div class="col-12 text-center p-2">
+                        <i class="bi bi-info-circle"> Nombre de post : {{ user_profile.user.posts|length }}</i>
+                    </div>
+                </div>
+                <div class="row d-flex m-auto">
+                    <div class="col-12 text-center p-2">
+                        <i class="bi bi-info-circle"> Nombre d'article : {{ user_profile.user.articles|length }}</i>
+                    </div>
+                </div>
+                <div class="row d-flex m-auto">
+                    <div class="col-12 text-center p-2">
+                        <i class="bi bi-info-circle"> Nombre de parcours ajouté : {{ user_profile.user.courses|length }}</i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-sm-12 offset-lg-1 first-content">
+                <div class="row py-4 px-2">
+                    {{ form_start(formPost) }} 
+                    <div class="col-12 p-4 second-content">
+                        <div class="row">
+                            <div class="col-lg-11 col-sm-12">
+                                {{ form_row(formPost.content) }}
+                            </div>
+                        </div>
+                        <div class="row text-end mx-md-5">
+                            <div class="col-lg-12 col-sm-12 px-0 ">
+                                <input type="submit"value="{{ btnLabel }}" class="btn btn-main">
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(formPost) }}
+                </div>
+                <div class="row p-2 pb-4">
+                    {% for post in user_profile.user.posts %}              
+                    <div class="col-12 py-4 second-content mb-4">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-lg-1 col-sm-12">
+                                    {% if user_profile.avatarName %}
+                                    <img src="{{ vich_uploader_asset(user_profile, 'avatarFile') }}" alt="avatar" width="54" height="54" class="rounded-circle">
+                                    {% else %}
+                                    <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="54" height="54" class="rounded-circle">
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-11 col-sm-12">
+                                    <a class="name fw-bold" href="{{ path("user_show_profile", {'id': post.author.userProfile.id}) }}">{{ post.author }}</a> le {{ post.createdAt|date('d/m/Y') }} <br>
+                                    {{ post.content|raw }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-11 offset-1 first-content mt-4 p-2">
+                            <div class="row py-2">
+                                <h4>Commentaires</h4>
+                            </div>
+                            {% for comment_post in post.commentPosts %}
+                            <div class="row">
+                                <div class="col-lg-1 col-sm-12">
+                                    {% if user_profile.avatarName %}
+                                    <img src="{{ vich_uploader_asset(user_profile, 'avatarFile') }}" alt="avatar" width="48" height="48" class="rounded-circle">
+                                    {% else %}
+                                    <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="48" height="48" class="rounded-circle">
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-11 col-sm-12">
+                                    <a class="name fw-bold" href="{{ path("user_show_profile", {'id': comment_post.author.userProfile.id}) }}">{{ comment_post.author }}</a> le {{ comment_post.createdAt|date('d/m/Y') }} <br>
+                                    <p>{{ comment_post.content|raw }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

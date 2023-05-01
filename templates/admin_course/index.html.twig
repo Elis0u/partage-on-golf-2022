@@ -1,0 +1,57 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Administration Parcours - Partage ton golf{% endblock %}
+
+{% block body %}
+    <h1>Liste des parcours</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Website</th>
+                <th>Mis à jour</th>
+                <th>Status</th>
+                <th>Validé ?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.id }}</td>
+                <td>{{ course.name }}</td>
+                <td>{{ course.description }}</td>
+                <td>{{ course.adress }}</td>
+                <td>{{ course.phone }}</td>
+                <td>{{ course.website }}</td>
+                <td>{{ course.updatedAt ? course.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ course.status }}</td>
+                <td>
+                    {# On récupère si l'avis est validé ou non#}
+                    {% if course.isValidate == true %}
+                        <a href="{{ path('app_admin_switch_validate_course', {'id': course.id}) }}">Ne plus valider</a> 
+                    {% else %}
+                        <a href="{{ path('app_admin_switch_validate_course', {'id': course.id}) }}">Valider</a> 
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_course_show', {'id': course.id}) }}"><i class="bi bi-eye"></i></a>
+                    <a href="{{ path('app_admin_course_edit', {'id': course.id}) }}"><i class="bi bi-pencil"></i></a>
+                    <a href="{{ path('app_admin_course_delete', {'id': course.id}) }}"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Pas de parcours rescencé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-main" href="{{ path('app_admin_course_new') }}">Ajouter un parcours</a>
+{% endblock %}

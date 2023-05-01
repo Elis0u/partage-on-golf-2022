@@ -1,0 +1,47 @@
+{% extends 'base_register.html.twig' %}
+
+{% block title %}{{ pageTitle }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+
+<div class="login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 text-center vh-100 d-flex m-auto">
+                <div class="m-auto">
+                    <img src="{{ asset('assets/img/logos/logo_noir_vert1.png') }}" alt="Logo site" class="w-50">
+                    <h1 class="fw-bold text-uppercase p-5">Viens partager ton golf avec les autres utilisateurs !</h1>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 vh-100 d-flex m-auto">
+                <div class="card shadow-sm m-auto p-4">
+                    <nav class="navbar">
+                        <div class="container-fluid">
+                            <ul class="nav">
+                                <li class="p-1">
+                                <a href="{{ path('security_login') }}" class="nav-link text-center">
+                                    Se connecter
+                                </a>
+                                </li>
+                                <li class="p-1">
+                                    <a href="{{ path('security_registration') }}" class="nav-link text-center">
+                                        S'inscrire
+                                    </a>
+                                    </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="card-body">
+                        <p>Partage ton golf est un reseau social pour golfeur de tout niveau et de tout age. Vous pourrez publier des posts, faire des demandes de publication d'article mais aussi de parcours avec l'ajout de trou, développer votre réseau de contact afin de partager vos parties</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fil de discussion - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+<div class="discussion">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-lg-7 col-sm-12 first-content">
+                <div class="row py-4 px-2">
+                    {{ form_start(formPost) }} 
+                    <div class="col-12 p-4 second-content">
+                        <div class="row">
+                            <div class="col-lg-11 col-sm-12">
+                                {{ form_row(formPost.content) }}
+                            </div>
+                        </div>
+                        <div class="row text-end mx-md-5">
+                            <div class="col-lg-12 col-sm-12 px-0 ">
+                                <input type="submit"value="{{ btnLabel }}" class="btn btn-main">
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(formPost) }}
+                </div>
+                <div class="row p-2 pb-4">
+                    <div class="col-12 py-4 second-content">
+                        {% for post in posts %}
+                        <div class="first-content mb-5">
+                            <div class="col-12">
+                                <div class="row py-2">
+                                    <div class="col-2 text-center">
+                                        {% if post.author.userProfile.avatarName %}
+                                        <img src="{{ vich_uploader_asset(post.author.userProfile, 'avatarFile') }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                                        {% else %}
+                                        <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-10">
+                                        <a class="name fw-bold" href="{{ path("user_show_profile", {'id': post.author.userProfile.id}) }}">{{ post.author }}</a> le {{ post.createdAt|date('d/m/Y') }} <br>
+                                        {{ post.content|raw }} <br>
+                                        <span class="">
+                                            {% if app.user %}
+                                                {% if post.isAlikedPostByUser(app.user) %}
+                                                    <i class="bi bi-heart-fill text-danger like" data-post-id="{{post.id}}"
+                                                     data-like-url-post="{{ path('post_like_ajax', {'id': post.id }) }}"></i>
+                                                {% else %}
+                                                    <i class="bi bi-heart like" data-post-id="{{post.id}}" data-like-url-post="{{ path('post_like_ajax', {'id': post.id }) }}"></i>
+                                                {% endif %}
+                                            {% else %}
+                                                <i class="bi bi-heart text-muted"></i>
+                                            {% endif %}
+                                            <span id="counter-{{post.id}}">{{ post.alikePosts|length }}</span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-11 offset-1 first-content p-2">
+                                <div class="row py-2">
+                                    <h4>Commentaires</h4>
+                                </div>
+                                <p><a title="Clicker pour ouvrir la zone de commentaire" href="" data-bs-toggle="modal" data-bs-target="#commentsModal" data-comment data-id="{{ post.id }}" class="comment_add"> Ajouter un commentaire </a></p>
+
+                                {% for comment_post in post.commentPosts %}
+                                <div class="row py-2">
+                                    <div class="col-2 text-center">
+                                        {# {% if app.user.userProfile.avatarName %}
+                                        <img src="{{ vich_uploader_asset(app.user.userProfile, 'avatarFile') }}" alt="avatar" width="56" height="56" class="rounded-circle">
+                                        {% else %}
+                                        <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="56" height="56" class="rounded-circle">
+                                        {% endif %} #}
+                                        {% if comment_post.author.userProfile.avatarName %}
+                                        <img src="{{ vich_uploader_asset(comment_post.author.userProfile, 'avatarFile') }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                                        {% else %}
+                                        <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-10">
+                                        <a class="name fw-bold" href="{{ path("user_show_profile", {'id': comment_post.author.userProfile.id}) }}">{{ comment_post.author }}</a> le {{ comment_post.createdAt|date('d/m/Y') }} <br>
+                                        {{ comment_post.content|raw }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 offset-lg-1 col-sm-12 first-content actu">
+                <h2 class="text-center p-1">Dernières actualités</h2>
+
+                {% for article in article %}
+                <div class="col-12 second-content p-2 mb-2">
+                    <div class="row py-2">
+                        <div class="col-lg-3 col-sm-12">
+                            {% if article.author.userProfile.avatarName %}
+                            <img src="{{ vich_uploader_asset(article.author.userProfile, 'avatarFile') }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                            {% else %}
+                            <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-9 col-sm-12">
+                            <p><a class="name fw-bold" href="{{ path("user_show_profile", {'id': article.author.userProfile.id}) }}">{{ article.author }}</a> a publié <a class="name" href="{{ path("article_show", {'slug': article.slug}) }}">{{ article.title }}</a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% for course in course %}
+                <div class="col-12 second-content p-2 mb-2">
+                    <div class="row py-2">
+                        <div class="col-lg-3 col-sm-12">
+                            {% if course.author.userProfile.avatarName %}
+                            <img src="{{ vich_uploader_asset(course.author.userProfile, 'avatarFile') }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                            {% else %}
+                            <img src="{{ asset("assets/img/logos/logo2.png") }}" alt="avatar" width="64" height="64" class="rounded-circle">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-9 col-sm-12">
+                            <p><a class="name fw-bold" href="{{ path("user_show_profile", {'id': course.author.userProfile.id}) }}">{{ course.author }}</a> a publié <a class="name" href="{{ path("course_show", {'slug': course.slug}) }}">{{ course.name }}</a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+  <!-- Modal Comment-->
+  <div class="modal fade" id="commentsModal" tabindex="-1" aria-labelledby="commentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="commentsModalLabel">Partie commentaire</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row" id="ajout_comm">
+                {{ form_start(formComment)}}
+                <div>
+                    {{ form_row(formComment.content) }} 
+                </div>
+                <div class="col-lg-2 col-sm-12 px-0 text-center">
+                    <input type="submit" class="btn btn-main" value="Envoyer">
+                </div>
+                {{ form_end(formComment)}}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.onload = () => {
+            document.querySelectorAll("[data-comment]").forEach(element => {
+                element.addEventListener("click",function () {
+                    // console.log(this);
+                    document.querySelector("#comment_post_post").value = this.dataset.id;
+                });
+            });      
+        
+            let listLikesPost = document.querySelectorAll('.like');
+            for(let i=0; i < listLikesPost.length; i++) {
+
+                listLikesPost[i].addEventListener('click', function(e){
+                    e.preventDefault();
+                    
+                    console.log(this.dataset.likeUrlPost);
+                    let url =  this.dataset.likeUrlPost;
+                    let xhr = new XMLHttpRequest();
+        
+                    xhr.open("GET", url);
+                    xhr.send();
+        
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) { // 4 = terminé
+                            let res = JSON.parse(xhr.responseText);
+        
+                            let post = "counter-" + listLikesPost[i].dataset.postId;
+                            let counter = document.querySelector("#"+post)
+                            
+                            let cpt = counter.innerText;
+                            if(res['code'] == 10){
+                                // unlike
+                                listLikesPost[i].classList.remove("bi-heart-fill");
+                                listLikesPost[i].classList.add("bi-heart");
+                            
+                                counter.innerText = cpt-1;
+        
+                            } else {
+                                // like
+                                listLikesPost[i].classList.remove("bi-heart");
+                                listLikesPost[i].classList.add("bi-heart-fill");
+                                
+                                counter.innerText = parseInt(cpt)+1;
+                            }
+        
+                        }
+                    }
+                })
+            }
+
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,163 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../../public/assets/font/montserrra/Montserrat-Regular.ttf");
+}
+
+:root {
+    --principal-green1-color: #9AB201;
+    --principal-green2-color: #788C30;
+    --principal-blue-color: #427AA1;
+    --principal-creame-color: #F2F2F2;
+    --principal-creame2-color: #E6E6E6;
+  }
+  
+body {
+    overflow-x: hidden;
+}
+
+body .btn-main {
+    background-color: var(--principal-blue-color);
+    border-radius: 16px;
+    color: white;
+    padding: 10px 40px;
+}
+
+body .btn-admin {
+    background-color: var(--principal-green2-color);
+    border-radius: 16px;
+    color: white;
+    padding: 10px 40px;
+}
+
+body .btn-main:hover {
+    background-color: var(--principal-green2-color);
+    color:white;
+    border-color: var(--principal-green2-color);
+}
+
+body .btn-admin:hover {
+    background-color: var(--principal-blue-color);
+    color:white;
+    border-color: var(--principal-blue-color);
+}
+
+body .btn-admin.active {
+    background-color: var(--principal-blue-color);
+    color:white;
+    border-color: var(--principal-blue-color);
+}
+
+* .name {
+    color: var(--principal-green2-color);
+}
+
+.login, .register{
+    background-image: url("../../public/assets/img/golf_4.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Montserrat";
+}
+
+.login h1,  .second-nav .nav-link:hover, .panel_admin .nav-link:hover {
+    color: white;
+}
+
+.login a, .register a, .second-nav .nav-link, .panel_admin .nav-link {
+    color: var(--principal-green2-color);
+    text-decoration: none;
+}
+
+.login a:hover, .register a:hover{
+    color: var(--principal-blue-color);
+}
+
+.login .btn, .register .btn, body .btn-form {
+    background-color: var(--principal-green2-color);
+    border-color: var(--principal-green2-color);
+}
+
+.login .btn:hover, .register .btn:hover, .contact .btn:hover, body .btn-form:hover, .panel_admin .nav-link:hover {
+    background-color: var(--principal-blue-color);
+    border-color: var(--principal-blue-color);
+}
+
+body .form-control:focus {
+    border-color: var(--principal-green2-color);
+    box-shadow: 0 0 0 .25rem var(--principal-green2-color);
+    opacity: 0.3;
+}
+
+.register .register_logo img {
+    max-height: 20vh;
+}
+
+.first-nav {
+    background-color: var(--principal-green1-color);
+}
+
+.first-nav .icon {
+    width:10%
+}
+
+.first-nav .dropdown-menu {
+    margin-left: -100px;
+}
+
+.second-nav {
+    background-color: var(--principal-creame-color);
+}
+
+.second-nav li:hover{
+    background-color: var(--principal-blue-color);
+}
+
+
+body .btn-search, body .btn-search:hover,  body .btn-send, body .btn-send:hover{
+    border-color: var(--principal-green2-color);
+}
+
+body .first-content {
+    background-color: var(--principal-creame-color);
+    border-radius: 16px;
+}
+
+body .second-content {
+    background-color: var(--principal-creame2-color);
+    border-radius: 16px;
+}
+
+footer {
+    color: white;
+    height: 10vh;
+    background-color: var(--principal-green1-color);
+}
+
+.spe_article .contenant img {
+    border-radius: 16px;
+}
+
+.all_courses .region a {
+    color: var(--principal-blue-color);
+}
+
+.all_courses .course-link a{
+    color : var(--principal-blue-color);
+}
+
+.all_courses .course-link a:hover{
+    color : var(--principal-green1-color);
+}
+
+body a {
+    text-decoration: none;
+}
+
+body .actu .name:hover, body .discussion .name:hover, body .comment_add:hover, body .spe_article .name:hover, body .all_article .name:hover, body .profile .name:hover  {
+    color: var(--principal-blue-color)
+}
+
+body .comment_add {
+    color: var(--principal-green1-color);
+}
+

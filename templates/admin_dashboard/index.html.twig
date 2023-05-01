@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Hello AdminDashboardController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Statistiques</h1>
+
+    <div style="max-width: 500px">
+        <hr>
+        {{ render_chart(chart) }}
+        <hr>
+    </div>
+</div>
+
+{% endblock %}

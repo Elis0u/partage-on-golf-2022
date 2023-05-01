@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit CustomPage{% endblock %}
+
+{% block body %}
+    <h1>Edit CustomPage</h1>
+
+    {{ include('admin_custom_page/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_custom_page_index') }}">back to list</a>
+
+    {{ include('admin_custom_page/_delete_form.html.twig') }}
+{% endblock %}

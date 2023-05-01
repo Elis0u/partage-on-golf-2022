@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Administration - Partage ton golf{% endblock %}</title>
+        <link rel="icon" href="{{ asset('assets/img/logos/logo3.png') }}">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+        {# FIXME Import Bootstrap assets #}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+        
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4 p-4">
+                    <a class="btn btn-admin" href="{{ path('post') }}">Partir du pannel admin</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 
+        MESSAGE FLASH 
+        -->
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-dismissible alert-{{ type }}">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+        
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-2 ">
+                <ul>
+                    <a class="{% if active == 'dashboard' %}text-light{% endif %} mx-2" href="{{ path('app_admin_dashboard') }}"><li class="btn btn-admin {% if active == 'dashboard' %}active{% endif %} d-block">Statistiques</li></a>
+                    <a class="{% if active == 'settings' %}text-light{% endif %} mx-2" href="{{ path('app_admin_partage_ton_golf_index') }}"><li class="btn btn-admin {% if active == 'settings' %}active{% endif %} d-block">Paramètres</li></a>
+                    <a class="{% if active == 'customPage' %}text-light{% endif %} mx-2" href="{{ path('app_admin_custom_page_index') }}"><li class="btn btn-admin {% if active == 'customPage' %}active{% endif %} d-block">Page Perso</li></a>
+                    <a class="{% if active == 'contact' %}text-light{% endif %} mx-2" href="{{ path('app_admin_contact_index') }}"><li class="btn btn-admin {% if active == 'contact' %}active{% endif %} d-block">Contact</li></a>
+                    <a class="{% if active == 'membres' %}text-light{% endif %} mx-2" href="{{ path('app_admin_user_index') }}"><li class="btn btn-admin {% if active == 'membres' %}active{% endif %} d-block">Membres</li></a>
+                    <a class="{% if active == 'role' %}text-light{% endif %} mx-2" href="{{ path('app_admin_role_index') }}"><li class="btn btn-admin {% if active == 'role' %}active{% endif %} d-block">Role</li></a>
+                    <a class="{% if active == 'post' %}text-light{% endif %} mx-2" href="{{ path('app_admin_post_index') }}"><li class="btn btn-admin {% if active == 'post' %}active{% endif %} d-block">Post</li></a>
+                    <a class="{% if active == 'article' %}text-light{% endif %} mx-2" href="{{ path('app_admin_article_index') }}"><li class="btn btn-admin {% if active == 'article' %}active{% endif %} d-block">Articles</li></a>
+                    <a class="{% if active == 'parcours' %}text-light{% endif %} mx-2" href="{{ path('app_admin_course_index') }}"><li class="btn btn-admin {% if active == 'parcours' %}active{% endif %} d-block">Parcours</li></a>
+                    <a class="{% if active == 'trous' %}text-light{% endif %} mx-2" href="{{ path('app_admin_hole_index') }}"><li class="btn btn-admin {% if active == 'trous' %}active{% endif %} d-block">Trous</li></a>
+                    <a class="{% if active == 'type' %}text-light{% endif %} mx-2" href="{{ path('app_admin_kind_course_index') }}"><li class="btn btn-admin {% if active == 'type' %}active{% endif %} d-block">Type golf</li></a>
+                    <a class="{% if active == 'region' %}text-light{% endif %} mx-2" href="{{ path('app_admin_region_index') }}"><li class="btn btn-admin {% if active == 'region' %}active{% endif %} d-block">Region</li></a>
+                    <a class="{% if active == 'statu' %}text-light{% endif %} mx-2" href="{{ path('app_admin_status_index') }}"><li class="btn btn-admin {% if active == 'statu' %}active{% endif %} d-block">Status</li></a>
+                </ul>
+            </div>
+            <div class="col">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+        {# FIXME Import Bootstrap assets #}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+</html>

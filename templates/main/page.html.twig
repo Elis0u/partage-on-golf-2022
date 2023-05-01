@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row text-center p-3">
+        <h1>Partage ton golf - {{ page.title }}</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+        {{ page.content|raw }}
+        </div>
+    </div>
+</div>
+{% endblock %}

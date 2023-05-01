@@ -1,0 +1,35 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}PartageTonGolf index{% endblock %}
+
+{% block body %}
+    <h1>PartageTonGolf index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Slogan</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for partage_ton_golf in partage_ton_golves %}
+            <tr>
+                <td>{{ partage_ton_golf.id }}</td>
+                <td>{{ partage_ton_golf.slogan }}</td>
+                <td>
+                    <a href="{{ path('app_admin_partage_ton_golf_show', {'id': partage_ton_golf.id}) }}">show</a>
+                    <a href="{{ path('app_admin_partage_ton_golf_edit', {'id': partage_ton_golf.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_partage_ton_golf_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Editer le parcours{% endblock %}
+
+{% block body %}
+    <h1>Editer {{ course.name }}</h1>
+
+    {{ include('admin_course/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_course_index') }}">Revenir à la liste</a>
+
+    {{ include('admin_course/_delete_form.html.twig') }}
+{% endblock %}

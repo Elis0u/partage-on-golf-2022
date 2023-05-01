@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Ajout nouveau parcours{% endblock %}
+
+{% block body %}
+    <h1>Ajout d'un parcours</h1>
+
+    {{ include('admin_course/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_course_index') }}">Revenir à la liste</a>
+{% endblock %}

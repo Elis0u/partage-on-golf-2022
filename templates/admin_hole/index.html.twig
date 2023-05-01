@@ -1,0 +1,47 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Hole index{% endblock %}
+
+{% block body %}
+    <h1>Hole index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Tips</th>
+                <th>DistanceBleu</th>
+                <th>DistanceRouge</th>
+                <th>DistanceJaune</th>
+                <th>DistanceBlanc</th>
+                <th>ImageName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hole in holes %}
+            <tr>
+                <td>{{ hole.id }}</td>
+                <td>{{ hole.name }}</td>
+                <td>{{ hole.tips }}</td>
+                <td>{{ hole.distanceBleu }}</td>
+                <td>{{ hole.distanceRouge }}</td>
+                <td>{{ hole.distanceJaune }}</td>
+                <td>{{ hole.distanceBlanc }}</td>
+                <td>{{ hole.imageName }}</td>
+                <td>
+                    <a href="{{ path('app_admin_hole_show', {'id': hole.id}) }}">show</a>
+                    <a href="{{ path('app_admin_hole_edit', {'id': hole.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_hole_new') }}">Create new</a>
+{% endblock %}

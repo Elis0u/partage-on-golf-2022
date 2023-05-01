@@ -1,0 +1,31 @@
+{% extends 'base_register.html.twig' %}
+
+{% block title %}Erreur - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+
+<div class="login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 text-center vh-100 d-flex m-auto">
+                <div class="m-auto">
+                    <img src="{{ asset('assets/img/logos/logo_noir_vert1.png') }}" alt="Logo site" class="w-50">
+                    <h1 class="fw-bold text-uppercase p-5">Viens partager ton golf avec les autres utilisateurs !</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 vh-100 d-flex m-auto">
+                <div class="card shadow-sm m-auto p-4">
+                    <div class="card-body">
+                        Vous n'avez pas les accès nécessaires. Retournez à la page d'accueil : <a href="{{ path('post') }}">Ici</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

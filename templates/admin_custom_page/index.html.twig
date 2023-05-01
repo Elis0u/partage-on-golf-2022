@@ -1,0 +1,44 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Admin Custom Page - Partage ton golf{% endblock %}
+
+{% block body %}
+    <h1>Liste des pages custom</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Url</th>
+                <th>Crée le</th>
+                <th>Mis à jour</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for custom_page in custom_pages %}
+            <tr>
+                <td>{{ custom_page.id }}</td>
+                <td>{{ custom_page.title }}</td>
+                <td>{{ custom_page.content|u.truncate(50, '...') }}</td>
+                <td>{{ custom_page.url }}</td>
+                <td>{{ custom_page.createdAt ? custom_page.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ custom_page.updatedAt ? custom_page.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_custom_page_show', {'id': custom_page.id}) }}">show</a>
+                    <a href="{{ path('app_admin_custom_page_edit', {'id': custom_page.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_custom_page_delete', {'id': custom_page.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Pas de page custom</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_custom_page_new') }}">Ajouter</a>
+{% endblock %}

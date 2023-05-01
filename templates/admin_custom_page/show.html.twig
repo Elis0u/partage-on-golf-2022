@@ -1,0 +1,42 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}CustomPage{% endblock %}
+
+{% block body %}
+    <h1>CustomPage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ custom_page.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ custom_page.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ custom_page.content }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ custom_page.url }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ custom_page.createdAt ? custom_page.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ custom_page.updatedAt ? custom_page.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_custom_page_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_custom_page_edit', {'id': custom_page.id}) }}">edit</a>
+
+    {{ include('admin_custom_page/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pageTitle }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+<div class="settings">
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 offset-lg-2 col-sm-12">
+                <div class="card shadow-sm p-4">
+                    <div class="card-body">
+                        {{ form_start(formArticle) }}
+                            <h2 class="text-uppercase pb-5 text-center">Création d'un article</h2>
+                            <div class="row">
+                                <div class="col-12">        
+                                    {{ form_row(formArticle.title) }} 
+                                </div>
+                                <div class="colcol-12">
+                                    {{ form_row(formArticle.imageFile) }} 
+                                </div>
+                                <div class="colcol-12">        
+                                    {{ form_row(formArticle.content) }} 
+                                </div>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <input type="submit"value="{{ btnLabel }}" class="btn btn-primary btn-form">
+                            </div> 
+                          {{ form_end(formArticle) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

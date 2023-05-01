@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pageTitle }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+<div class="settings">
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 offset-lg-2 col-sm-12">
+                <div class="card shadow-sm p-4">
+                    <div class="card-body">
+                        {{ form_start(formCourse) }}
+                            <h2 class="text-uppercase pb-5 text-center">Création d'un parcours (18 trous max)</h2>
+                            <div class="row">
+                                <div class="col-12">        
+                                    {{ form_row(formCourse.name) }}  
+                                </div>
+                                <div class="col-12">
+                                    {{ form_row(formCourse.description) }} 
+                                </div>
+                                <div class="col-4">        
+                                    {{ form_row(formCourse.adress) }} 
+                                </div>
+                                <div class="col-4">        
+                                    {{ form_row(formCourse.phone) }} 
+                                </div>
+                                <div class="col-4">        
+                                    {{ form_row(formCourse.website) }} 
+                                </div>
+                                <div class="col-6">
+                                    {{ form_row(formCourse.avatarFile) }}
+                                </div>
+                                <div class="col-3">
+                                    {{ form_row(formCourse.region) }} 
+                                </div>
+                                <div class="col-3">
+                                    {{ form_row(formCourse.kind) }} 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="holes" data-prototype="{{ form_row(formCourse.holes.vars.prototype)|e('html_attr') }}">
+                                        {{ form_row(formCourse.holes) }}
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <input type="submit"value="{{ btnLabel }}" class="btn btn-primary btn-form">
+                            </div> 
+                          {{ form_end(formCourse) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let collection, boutonAjout, span;
+        window.onload = () => {
+            // Recuperation des balises ID holes
+            collection = document.querySelector("#holes");
+            // Recuperation des balises span dans les id holes
+            span = collection.querySelector("span");
+            // Création d'un élémment boutton pour l'ajout
+            boutonAjout = document.createElement("button");
+            // Injection de class pour le bouton ajout
+            boutonAjout.className = "ajout-hole btn btn-success";
+            // Injection d'un over title pour le bouton ajout
+            boutonAjout.title = "Appuyez pour ajouter";
+            // Visuel du bouton
+            boutonAjout.innerText = "+"
+
+            // Variable pour l'ajout du bouton dans le span
+            let nouveauBouton = span.append(boutonAjout);
+
+            // On ajout l'index
+            collection.dataset.index = collection.querySelectorAll("input").length;
+
+            //au click on ajout le bouton
+            boutonAjout.addEventListener("click", function() {
+                addButton(collection, nouveauBouton);
+            })
+        }
+
+        // Function pour l'ajout d'un bouton
+        function addButton(collection, nouveauBouton) {
+            // on récupere le prototype
+            let prototype = collection.dataset.prototype;
+            // on recupere l'index
+            let index = collection.dataset.index;
+            // Dans le prototype generé on inject l'index (+1)
+            prototype = prototype.replace(/__name__/g, index);
+            // dans une variable on cree un element html
+            let content = document.createElement("html");
+            // Dans la balise html on inject l'index
+            content.innerHTML = prototype;
+            // on stock dans une vairable
+            let newForm = content.querySelector("div");
+            // dans une vairable, on cree un nouveau bouton
+            boutonSuppr = document.createElement("button");
+            // on indique le type
+            boutonSuppr.type = "button";
+            // on indique les class
+            boutonSuppr.className = "btn btn-warning";
+            // on indique l'id en indiquant l'index a supprimer
+            boutonSuppr.id = "delete-hole-" + index;
+            // on indique le visuel
+            boutonSuppr.innerText = "-"
+
+            // on ajout le boutton supprimer
+            newForm.append(boutonSuppr);
+
+            // on indique qu'a chaque ajout on fait +1
+            collection.dataset.index++;
+
+            // on recupere les elements de classe :
+            let boutonAjout = collection.querySelector(".ajout-hole");
+            // on insere le newForm avant le bouton ajout
+            span.insertBefore(newForm, boutonAjout);
+
+            // au click on supprime le formulaire precedent
+            boutonSuppr.addEventListener("click", function(){
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+
+    </script>
+{% endblock %}

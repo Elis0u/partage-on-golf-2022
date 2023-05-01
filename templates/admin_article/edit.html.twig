@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Editer {{ article.title }} - Partage ton golf{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Edit Article</h1>
+
+    {{ include('admin_article/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_article_index') }}">Revenir à la liste d'article</a>
+
+    {{ include('admin_article/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les articles - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+<div class="all_article">
+    <div class="container">
+        <div class="row py-4 d-flex m-auto">
+            <div class="col-6">
+                <h1>Les articles</h1>
+            </div>
+            <div class="col-6 text-end m-auto">
+                <a href="{{ path('article_new') }}" class="btn btn-main">Ajouter un article</a>  
+            </div>
+        </div>
+        <div class="row first-content my-4">
+            {% for article in articles %}
+            <div class="col-12">
+                <div class="card m-4">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        {% if article.imageName %}
+                        <img src="{{ vich_uploader_asset(article, 'imageFile')| imagine_filter('article_thumb') }}" class="img-fluid rounded-start" alt="Photo de {{ article.title }}">
+                        {% else %}
+                        <img src="{{ asset("assets/img_article_default.png")| imagine_filter('article_thumb') }}" class="img-fluid rounded-start">
+                        {% endif %}
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ article.title }}</h5>
+                          <p class="card-text"><small class="text-muted">Ecrit par <a class="name fw-bold" href="{{ path("user_show_profile", {'id': article.author.userProfile.id}) }}">{{ article.author }}</a> le {{ article.createdAt|date ('d/m/Y') }}</small></p>
+                          <p class="card-text">{{ article.content|u.truncate(100, '...')|raw }}</p>
+                        </div>
+                        <span class="text-end mx-4">
+                            {% if app.user %}
+                                {% if article.isAlikedByUser(app.user) %}
+                                    <i class="bi bi-heart-fill text-danger like" data-article-id="{{article.id}}"
+                                     data-like-url="{{ path('article_like_ajax', {'id': article.id }) }}"></i>
+                                {% else %}
+                                    <i class="bi bi-heart like" data-article-id="{{article.id}}" data-like-url="{{ path('article_like_ajax', {'id': article.id }) }}"></i>
+                                {% endif %}
+                            {% else %}
+                                <i class="bi bi-heart text-muted"></i>
+                            {% endif %}
+                            <span id="counter-{{article.id}}">{{ article.alikes|length }}</span>
+                        </span>
+                        <div class="text-end mx-4"> 
+                            <a href="{{ path('article_show', {'slug': article.slug}) }}" class="btn btn-main">Lire la suite</a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row">
+                    {{ knp_pagination_render(articles) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let listLikes = document.querySelectorAll('.like');
+
+    for(let i=0; i < listLikes.length; i++) {
+
+        listLikes[i].addEventListener('click', function(e){
+            e.preventDefault();
+            
+            console.log(this.dataset.likeUrl);
+            let url =  this.dataset.likeUrl;
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", url);
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) { // 4 = terminé
+                    let res = JSON.parse(xhr.responseText);
+
+                    let article = "counter-" + listLikes[i].dataset.articleId;
+                    let counter = document.querySelector("#"+article)
+                    
+                    let cpt = counter.innerText;
+                    if(res['code'] == 10){
+                        // unlike
+                        listLikes[i].classList.remove("bi-heart-fill");
+                        listLikes[i].classList.add("bi-heart");
+                    
+                        counter.innerText = cpt-1;
+
+                    } else {
+                        // like
+                        listLikes[i].classList.remove("bi-heart");
+                        listLikes[i].classList.add("bi-heart-fill");
+                        
+                        counter.innerText = parseInt(cpt)+1;
+                    }
+
+                }
+            }
+        })
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les parcours - Partage Ton Golf{% endblock %}
+
+{% block body %}
+    <div class="courses">
+        
+<div class="all_courses">
+    <div class="container">
+        <div class="row py-4 d-flex m-auto">
+            <div class="col-6">
+                <h1>Les Parcours</h1>
+            </div>
+            <div class="col-6 text-end m-auto">
+                <a href="{{ path('course_new') }}" class="btn btn-main">Ajouter un parcours</a>  
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for region in region %}
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h2 class="card-title text-center">{{ region.label }}</h2>
+                  {% for course in region.courses %} 
+                  {% if course.status.internalName == "publish" %}
+                  <div class="row text-center d-flex m-auto first-content my-2">
+                      <div class="col-lg-11 col-sm-12 m-auto">
+                          <p class="name fw-bold mb-0 p-2 course-link"><a title="" href="{{ path('course_show', {'slug': course.slug}) }}"> {{ course.name }}</a></p>
+                      </div>
+                  </div>
+                  {% endif %}
+              {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+    </div>
+</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ course.name }} - Partage Ton Golf{% endblock %}
+
+{% block body %}
+
+
+<div class="spe_course">
+    <div class="container my-2">
+        <div class="row mt-4">
+            <div class="col-9 text-end m-auto">
+                <a href="{{ path('courses') }}" class="btn btn-main">Tous les parcours</a>
+            </div>
+        </div>
+        <div class="row d-flex m-auto mt-2">
+            <div class="col-lg-12 text-center">         
+                {% if course.avatarName %}
+                <img src="{{ vich_uploader_asset(course, 'avatarFile') }}" alt="Photo de {{ course.name }}"  width="200" height="200" class="rounded-circle">
+                {% else %}
+                <img src="{{ asset("assets/default_golf.jpg") }}" alt="Photo de {{ course.name }}"  width="200" height="200" class="rounded-circle">
+                {% endif %}
+            </div>
+            <div class="col-12 mt-2 text-center">
+                <h1>{{ course.name }}</h1>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12 col-lg-6">
+                <div class="second-content text-center p-4">
+                    {{ course.description|raw }}
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-6 mt-sm-3">
+                <div class="second-content p-4">
+                    <h2 class=" text-center">Fiche du golf</h2>
+                    <div class="element mx-5">
+                        <i class="bi bi-geo-alt"></i> {{ course.adress }} <br> 
+                        <i class="bi bi-telephone"></i> {{ course.phone }} <br>
+                        <i class="bi bi-globe2"></i> {{ course.website }} <br>
+                        <i class="bi bi-geo"></i> {{ course.region }} <br>
+                        <i class="bi bi-chevron-right"></i> Parcours de type : {{ course.kind }} <br>
+                        Ajouté par <a class="name fw-bold" href="{{ path("user_show_profile", {'id': course.author.userProfile.id}) }}">{{ course.author }}</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 m-auto justify-content-md-center">
+            {% for hole in course.holes %}
+            <div class="card mb-3 mx-2 first-content" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                    <img src="{{ vich_uploader_asset(hole, 'imageFile') }}" alt="Photo de {{ hole.name }}" class="img-fluid rounded-start">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ hole.name }}</h3>
+                        <p class="card-text">{{ hole.tips }}</p>
+                        <i class="bi bi-circle-fill" style="color: red;"></i> {{ hole.distanceRouge }}m <br>
+                        <i class="bi bi-circle-fill" style="color: blue;"></i> {{ hole.distanceBleu }}m <br>
+                        <i class="bi bi-circle-fill" style="color: yellow;"></i> {{ hole.distanceJaune }}m <br>
+                        <i class="bi bi-circle-fill" style="color: white;"></i> {{ hole.distanceBlanc }}m <br>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
